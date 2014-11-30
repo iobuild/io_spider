@@ -6,11 +6,11 @@ require 'io_spider/version'
 Gem::Specification.new do |spec|
   spec.name          = "io_spider"
   spec.version       = IoSpider::VERSION
-  spec.authors       = ["mykingla"]
-  spec.email         = ["kingla_pei@163.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.authors       = ["Arly Xiao"]
+  spec.email         = ["arlyxiao@163.com"]
+  spec.summary       = %q{The simplest spider tool}
+  spec.description   = %q{The simplest spider tool}
+  spec.homepage      = "https://github.com/iobuild/io_spider"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -20,4 +20,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency 'rspec-rails', '~> 2.14.0'
 end

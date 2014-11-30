@@ -1,5 +1,16 @@
 require "io_spider/version"
+require "io_spider/digger"
 
 module IoSpider
-  # Your code goes here...
+
+  class << self
+
+    def digg(&block)
+      klass = Class.new
+      klass.send(:include, IoSpider::Digger)
+      klass.new.digg(&block)
+    end
+  end
+
+
 end
