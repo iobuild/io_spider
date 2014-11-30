@@ -1,0 +1,3 @@
+module IoSpider
+  VERSION = "0.0.1"
+end
