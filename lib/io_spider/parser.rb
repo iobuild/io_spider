@@ -8,7 +8,7 @@ module IoSpider
 
     def parse(digg_list)
 
-      h_list = Array.new
+      h_list = Hash.new
       h = Hash.new
 
       digg_list.each do |properties|
@@ -34,42 +34,32 @@ module IoSpider
 
         end
 
-        h_list << h
+        h_list[properties.name] = h
 
       end
 
-      p h_list
+      # p h_list
 
-      # keys = properties.keys
+      parser_list = Hash.new
 
-      # keys.each_with_index do |k, i|
-      #   selector = properties[k].selector
-      #   block = properties[k].callback
-      #   p top_selector + ' ' + selector
+      h_list.keys.each do |k|
+        h = h_list[k]
+        
+        h.first[1].length.times do |i|
 
-      #   r = @page.search top_selector + ' ' + selector
-      #   p r.length
-      #   # return
-      #   # p @page.search(top_selector + ' ' + selector).first['href'].strip
-      #   # t.search('a').first['href'].strip
+          parser_list[i] = Hash.new
+          h.keys.each do |kk|
+            parser_list[i][kk] = h[kk][i]
+          end
 
-      #   # temp_arr = Array.new
-      #   # @page.search(top_selector).each do |t|
-      #   #   t = t.search(selector)
-      #   #   if block
-      #   #     temp_arr << block.call(t)
-      #   #   else
-      #   #     temp_arr << t.text
-      #   #   end
+          # p parser_list
           
-      #   # end
+        end
 
-      #   # properties[k] = temp_arr
+      end
 
+      p parser_list
 
-      # end
-
-      # p properties.values
 
       # one.zip(two).map{|one,two| {one:one,two:two}}
 
