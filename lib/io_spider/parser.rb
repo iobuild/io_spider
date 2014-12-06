@@ -39,31 +39,35 @@ module IoSpider
       end
 
       # p h_list
-
-      parser_list = Hash.new
+      parsers = Hash.new
+      parser_list = Array.new
+      items = Hash.new
 
       h_list.keys.each do |k|
+        # p k
         h = h_list[k]
         
         h.first[1].length.times do |i|
 
-          parser_list[i] = Hash.new
+          items[i] = Hash.new
           h.keys.each do |kk|
-            parser_list[i][kk] = h[kk][i]
+            items[i][kk] = h[kk][i]
           end
+
+          parser_list << items[i]
 
           # p parser_list
           
         end
 
+        parsers[k] = parser_list
+
       end
 
-      p parser_list
+      p parsers
 
+      parsers
 
-      # one.zip(two).map{|one,two| {one:one,two:two}}
-
-      # properties
       
     end
 
