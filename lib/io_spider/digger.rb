@@ -23,7 +23,7 @@ module IoSpider
 
         def method_missing method, *args, &block
 
-          @properties = Properties.new(method.to_s, args[0])
+          @properties = Properties.new(method.to_s, args[0], @format)
 
           @properties.instance_eval &block if block_given? 
 

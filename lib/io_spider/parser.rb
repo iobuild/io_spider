@@ -13,26 +13,31 @@ module IoSpider
 
       digg_list.each do |properties|
 
-        top_selector = properties.selector
+        case properties.format
+        when :iterator
+          top_selector = properties.selector
 
-        properties.keys.each do |k|
+          properties.keys.each do |k|
 
-          h[k] = Array.new
+            h[k] = Array.new
 
-          selector = properties[k].selector
-          block = properties[k].callback
+            selector = properties[k].selector
+            block = properties[k].callback
 
-          @page.search(top_selector).each do |t|
-            t = t.search(selector)
-            if block
-              h[k] << block.call(t)
-            else
-              h[k] << t.text
+            @page.search(top_selector).each do |t|
+              t = t.search(selector)
+              if block
+                h[k] << block.call(t)
+              else
+                h[k] << t.text
+              end
+              
             end
-            
-          end
 
+          end
+          
         end
+
 
         h_list[properties.name] = h
 
