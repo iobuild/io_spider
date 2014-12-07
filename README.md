@@ -27,7 +27,7 @@ Obs: Requires ruby 1.9.3 (activesupport requires Ruby version >= 1.9.3)
 
 
 ```ruby
-require 'wombat'
+require 'io_spider'
 
 IoSpider::Digger.new(url).digg do
 
@@ -87,3 +87,9 @@ end
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+
+## Contributors
+
+ * Arly Xiao ([@arlyxiao](https://github.com/arlyxiao))
+ * [List of all contributors](https://github.com/iobuild/io_spider/graphs/contributors)
