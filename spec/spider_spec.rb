@@ -14,9 +14,13 @@ describe 'test spider' do
 
   it 'first' do
     url = 'http://www.weixiyu.com/espanol/exam/'
-    r = IoSpider::Digger.new(url, :iterator).digg do
+    r = IoSpider::Digger.new(url).digg do
 
-      exams 'div[@class="article"]' do
+      test_text 'div[@class="wdsi-slide-content"] p', :text
+
+      title_list 'div[@class="article"] h2', :list
+
+      exams 'div[@class="article"]', :iterator do
         title 'h2'
         href  'h2 a' do |h|
           h.first['href'].strip
