@@ -42,30 +42,8 @@ module IoSpider
 
             search_result[properties.name] = list_data
           when :iterator
-            iterator_list = Hash.new
 
-            top_selector = properties.selector
-
-            properties.keys.each do |property_name|
-
-              iterator_list[property_name] = Array.new
-
-              selector = properties[property_name].selector
-              block = properties[property_name].callback
-
-              @page.search(top_selector).each do |t|
-                t = t.search(selector)
-                if block
-                  iterator_list[property_name] << block.call(t)
-                else
-                  iterator_list[property_name] << t.text
-                end
-                
-              end
-
-            end
-
-            search_result[properties.name] = iterator_list
+            search_result[properties.name] = get_iterator_list(properties)
             
           end
 
@@ -89,22 +67,8 @@ module IoSpider
           when :list
             parsers[k] = parse_result
           when :iterator
-
-            iterator_list = Array.new
-            items = Hash.new
-
-            parse_result.first[1].length.times do |i|
-
-              items[i] = Hash.new
-              parse_result.keys.each do |kk|
-                items[i][kk] = parse_result[kk][i]
-              end
-
-              iterator_list << items[i]
-              
-            end
-
-            parsers[k] = iterator_list
+            
+            parsers[k] = rebuild_iterator_list(parse_result)
 
           end
 
@@ -112,6 +76,53 @@ module IoSpider
         # end of search_result each
 
         parsers
+      end
+
+
+      def get_iterator_list(properties)
+        iterator_list = Hash.new
+
+        top_selector = properties.selector
+
+        properties.keys.each do |property_name|
+
+          iterator_list[property_name] = Array.new
+
+          selector = properties[property_name].selector
+          block = properties[property_name].callback
+
+          @page.search(top_selector).each do |t|
+            t = t.search(selector)
+            if block
+              iterator_list[property_name] << block.call(t)
+            else
+              iterator_list[property_name] << t.text
+            end
+            
+          end
+
+        end
+
+        iterator_list
+      end
+
+
+      def rebuild_iterator_list(parse_result)
+        iterator_list = Array.new
+        items = Hash.new
+
+        parse_result.first[1].length.times do |i|
+
+          items[i] = Hash.new
+          parse_result.keys.each do |kk|
+            items[i][kk] = parse_result[kk][i]
+          end
+
+          iterator_list << items[i]
+          
+        end
+
+        iterator_list
       end
 
 
