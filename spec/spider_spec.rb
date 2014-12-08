@@ -39,7 +39,7 @@ describe 'test spider' do
     # p r['title']
     # p r['href']
 
-    # p r
+    p r
 
 
   end
