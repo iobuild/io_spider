@@ -34,11 +34,6 @@ module IoSpider
       end
       self.instance_eval &block
 
-      # p @digg_list
-      # p @digg_list[0].selector
-      # p @digg_list[0].name
-      # p @digg_list[0].keys
-
       page = Mechanize.new.get(@url)
       Parser.new(page).parse(@digg_list)
 

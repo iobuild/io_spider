@@ -2,7 +2,7 @@
 
 ENV['RACK_ENV'] = 'test'
 require "bundler"
-require './lib/io_spider'
+require 'io_spider'
 
 
 Bundler.require(:default, :test)
