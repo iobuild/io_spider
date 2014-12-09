@@ -80,30 +80,32 @@ module IoSpider
 
 
       def get_iterator_list(properties)
-        iterator_list = Hash.new
 
-        top_selector = properties.selector
+        properties.keys.reduce({}) do |res, property_name|
 
-        properties.keys.each do |property_name|
+          elements = search_by_properties(properties, property_name)
 
-          iterator_list[property_name] = Array.new
-
-          selector = properties[property_name].selector
-          block = properties[property_name].callback
-
-          @page.search(top_selector).each do |t|
-            t = t.search(selector)
-            if block
-              iterator_list[property_name] << block.call(t)
-            else
-              iterator_list[property_name] << t.text
-            end
-            
-          end
+          res.merge!( property_name => elements)
 
         end
 
-        iterator_list
+      end
+
+
+
+      def search_by_properties(properties, property_name)
+        top_selector = properties.selector
+        selector = properties[property_name].selector
+        block = properties[property_name].callback
+
+        @page.search(top_selector).map do |t|
+          t = t.search(selector) unless selector.nil?
+          if block
+            block.call(t)
+          else
+            t.text
+          end            
+        end
       end
 
 
