@@ -108,21 +108,12 @@ module IoSpider
 
 
       def rebuild_iterator_list(parse_result)
-        iterator_list = Array.new
-        items = Hash.new
 
-        parse_result.first[1].length.times do |i|
+        keys = parse_result.keys
+        arrays = parse_result.values
 
-          items[i] = Hash.new
-          parse_result.keys.each do |kk|
-            items[i][kk] = parse_result[kk][i]
-          end
-
-          iterator_list << items[i]
-          
-        end
-
-        iterator_list
+        klass = Struct.new(*keys.map(&:to_sym))
+        arrays.reduce(&:zip).map{|tup| klass.new(*tup.flatten)}.map(&:to_h)
       end
 
 
