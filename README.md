@@ -56,9 +56,9 @@ end
 
 ```ruby
 {
-  "test_text"=>"El que domina a los otros es fuerte pero el que se domina a si mismo es poderoso.胜人者有力，自胜者强", 
+  :test_text=>"El que domina a los otros es fuerte pero el que se domina a si mismo es poderoso.胜人者有力，自胜者强", 
 
-  "title_list"=>
+  :title_list=>
     [
       "西班牙语专四真题：2005-2013年 下载", 
       "下载：2013年西班牙语专四试题及答案", 
@@ -68,15 +68,15 @@ end
       "2014年西班牙语DELE考试时间费用与报名方法"
     ], 
 
-  "exams"=>
+  :exams=>
     [
-      {"title"=>"西班牙语专四真题：2005-2013年 下载", "href"=>"http://www.spanish.com/2005-2013/"}, 
-      {"title"=>"下载：2013年西班牙语专四试题及答案", "href"=>"http://www.spanish.com/2013-4/"}, 
-      {"title"=>"2014年西班牙语专业四级测试试题框架", "href"=>"http://www.spanish.com/4/"}, 
-      {"title"=>"DELE 考试成绩查询方法", "href"=>"http://www.spanish.com/dele2/"}, 
-      {"title"=>"全国西班牙语翻译专业资格考试", "href"=>"http://www.spanish.com/catti/"}, 
-      {"title"=>"2014年西班牙语专四专八考试时间", "href"=>"http://www.spanish.com/48/"}, 
-      {"title"=>"2014年西班牙语DELE考试时间费用与报名方法", "href"=>"http://www.spanish.com/dele/"}
+      {:title=>"西班牙语专四真题：2005-2013年 下载", :href=>"http://www.spanish.com/2005-2013/"}, 
+      {:title=>"下载：2013年西班牙语专四试题及答案", :href=>"http://www.spanish.com/2013-4/"}, 
+      {:title=>"2014年西班牙语专业四级测试试题框架", :href=>"http://www.spanish.com/4/"}, 
+      {:title=>"DELE 考试成绩查询方法", :href=>"http://www.spanish.com/dele2/"}, 
+      {:title=>"全国西班牙语翻译专业资格考试", :href=>"http://www.spanish.com/catti/"}, 
+      {:title=>"2014年西班牙语专四专八考试时间", :href=>"http://www.spanish.com/48/"}, 
+      {:title=>"2014年西班牙语DELE考试时间费用与报名方法", :href=>"http://www.spanish.com/dele/"}
     ]
 }
 ```
