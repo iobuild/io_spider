@@ -31,19 +31,20 @@ module IoSpider
 
         digg_list.each do |properties|
 
+          properties_name = properties.name.to_sym
           case properties.format
           when :text
-            search_result[properties.name] = @page.search(properties.selector).text
+            search_result[properties_name] = @page.search(properties.selector).text
           when :list
             list_data = Array.new
             @page.search(properties.selector).each do |t|
               list_data << t.text
             end
 
-            search_result[properties.name] = list_data
+            search_result[properties_name] = list_data
           when :iterator
 
-            search_result[properties.name] = get_iterator_list(properties)
+            search_result[properties_name] = get_iterator_list(properties)
             
           end
 
@@ -100,11 +101,7 @@ module IoSpider
 
         @page.search(top_selector).map do |t|
           t = t.search(selector) unless selector.nil?
-          if block
-            block.call(t)
-          else
-            t.text
-          end            
+          block ? block.call(t) : t.text          
         end
       end
 
