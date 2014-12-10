@@ -99,6 +99,8 @@ module IoSpider
         case doc
         when :inner_html
           context.inner_html
+        when :html
+          context.to_s
         else
           context.text
         end
