@@ -1,11 +1,12 @@
 module IoSpider
   class Properties < Hash
-    attr_accessor :name, :selector, :format
+    attr_accessor :name, :selector, :format, :doc
 
-    def initialize(name, selector, format)
+    def initialize(name, *args)
       @name = name
-      @selector = selector
-      @format = format
+      @selector = args[0]
+      @format = args[1]
+      @doc = args[2] if args[2]
     end
 
     def method_missing method, *args, &block

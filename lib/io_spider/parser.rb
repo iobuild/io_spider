@@ -34,11 +34,13 @@ module IoSpider
           properties_name = properties.name.to_sym
           case properties.format
           when :text
-            search_result[properties_name] = @page.search(properties.selector).text
+            context = @page.search(properties.selector)
+            doc = properties.doc
+            search_result[properties_name] = get_by_doc(context, doc)
           when :list
             list_data = Array.new
             @page.search(properties.selector).each do |t|
-              list_data << t.text
+              list_data << get_by_doc(t, properties.doc)
             end
 
             search_result[properties_name] = list_data
@@ -93,15 +95,26 @@ module IoSpider
       end
 
 
+      def get_by_doc(context, doc)
+        case doc
+        when :inner_html
+          context.inner_html
+        else
+          context.text
+        end
+      end
+
+
 
       def search_by_properties(properties, property_name)
         top_selector = properties.selector
         selector = properties[property_name].selector
         block = properties[property_name].callback
+        doc = properties[property_name].doc
 
         @page.search(top_selector).map do |t|
           t = t.search(selector) unless selector.nil?
-          block ? block.call(t) : t.text          
+          block ? block.call(t) : get_by_doc(t, doc)        
         end
       end
 
