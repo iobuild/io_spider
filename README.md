@@ -9,7 +9,7 @@ io_spider is a crawler with an elegant DSL that parses structured data from web 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'io_spider', :git => 'git@github.com:iobuild/io_spider.git'
+gem 'io_spider', :git => 'https://github.com/iobuild/io_spider.git'
 ```
 
 And then execute:
