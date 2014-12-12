@@ -35,7 +35,11 @@ module IoSpider
       end
       self.instance_eval &block
 
-      page = Mechanize.new.get(@url)
+      mechanize = Mechanize.new
+      mechanize.user_agent_alias = 'Mac Mozilla'
+      page = mechanize.get(@url)
+
+      
       Parser.new(page).parse(@digg_list)
 
     end
