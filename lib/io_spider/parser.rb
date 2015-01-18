@@ -96,13 +96,21 @@ module IoSpider
 
 
       def get_by_doc(context, doc)
-        case doc
-        when :inner_html
-          context.inner_html
-        when :html
-          context.to_s
-        else
-          context.text
+        # return '' if doc.nil? || context.nil? || context.empty?
+
+        begin
+          case doc
+          when :inner_html
+            context.inner_html
+          when :html
+            context.to_s
+          else
+            # p '----'
+            # p context.text
+            context.text
+          end
+        rescue Exception => e
+          p e.message
         end
       end
 
@@ -115,19 +123,37 @@ module IoSpider
         doc = properties[property_name].doc
 
         @page.search(top_selector).map do |t|
+          next if t.nil?
+       
           t = t.search(selector) unless selector.nil?
-          block ? block.call(t) : get_by_doc(t, doc)        
+          if block.nil?
+            get_by_doc(t, doc)
+          else
+            next if t.empty?
+            block.call(t)
+          end
+          # block ? block.call(t) : get_by_doc(t, doc)        
         end
       end
 
 
       def rebuild_iterator_list(parse_result)
+        # p parse_result
 
         keys = parse_result.keys
         arrays = parse_result.values
 
-        klass = Struct.new(*keys.map(&:to_sym))
-        arrays.reduce(&:zip).map{|tup| klass.new(*tup.flatten)}.map(&:to_h)
+        # p keys.length
+        # p arrays.length
+
+        begin
+          klass = Struct.new(*keys.map(&:to_sym))
+          arrays.reduce(&:zip).map{|tup| klass.new(*tup.flatten)}.map(&:to_h)
+        rescue Exception => e
+          p e.message
+        end
+
+        
       end
 
 
