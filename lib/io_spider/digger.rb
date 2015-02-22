@@ -36,7 +36,8 @@ module IoSpider
       self.instance_eval &block
 
       mechanize = Mechanize.new
-      mechanize.user_agent_alias = 'Mac Mozilla'
+      # mechanize.user_agent_alias = 'Mac Mozilla'
+      mechanize.user_agent_alias = 'Windows Chrome'
       page = mechanize.get(@url)
 
       # p @digg_list
