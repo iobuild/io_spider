@@ -9,12 +9,26 @@ require 'io_spider/parser'
 module IoSpider
   class Digger
 
-    attr_accessor :url, :format, :doc
+    attr_accessor :url, :format, :doc, :page_result
 
-    def initialize(url)
-      @url = url
+    def initialize(page_result)
+      @page_result = page_result
       @format = :text
       @digg_list = Array.new
+    end
+
+    def self.dig_url(url)
+      mechanize = Mechanize.new
+      # mechanize.user_agent_alias = 'Mac Mozilla'
+      mechanize.user_agent_alias = 'Windows Chrome'
+      page_result = mechanize.get(url)
+
+      self.new(page_result)
+    end
+
+    def self.dig_htmldoc(htmldoc)
+      page_result = Nokogiri::HTML htmldoc
+      self.new(page_result)
     end
 
     def digg(&block)
@@ -35,16 +49,9 @@ module IoSpider
       end
       self.instance_eval &block
 
-      mechanize = Mechanize.new
-      # mechanize.user_agent_alias = 'Mac Mozilla'
-      mechanize.user_agent_alias = 'Windows Chrome'
-      page = mechanize.get(@url)
-
       # p @digg_list
-
       
-      Parser.new(page).parse(@digg_list)
-
+      Parser.new(@page_result).parse(@digg_list)
     end
 
 
