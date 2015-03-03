@@ -29,7 +29,33 @@ Obs: Requires ruby 1.9.3 (activesupport requires Ruby version >= 1.9.3)
 ```ruby
 require 'io_spider'
 
-IoSpider::Digger.new(url).digg do
+IoSpider::Digger.dig_htmldoc(htmldoc).digg do
+
+  test_text 'div[@class="wdsi-slide-content"] p', :text
+
+  title_list 'div[@class="article"] h2', :list
+
+  exams 'div[@class="article"]', :iterator do
+    title 'h2'
+    href  'h2 a' do |h|
+      h.first['href'].strip
+    end
+  end
+
+  # exams1 'div[@class="article"]' do
+  #   title 'h2'
+  #   href  'h2 a' do |h|
+  #     h.first['href'].strip
+  #   end
+  # end
+  
+end
+
+
+or
+
+
+IoSpider::Digger.dig_url(url).digg do
 
   test_text 'div[@class="wdsi-slide-content"] p', :text
 
